@@ -34,6 +34,9 @@ body {
   min-height: 100vh;
   background-color: var(--secondary-color);
   color: var(--text-primary);
+  justify-content: center; /* Center content horizontally */
+  width: 100%; /* Full width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Container and layout */
@@ -41,10 +44,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 85%; /* Increased from 70% to 85% for a wider container */
+  min-width: 1300px; /* Increased from 1100px for wider minimum */
+  max-width: 2200px; /* Significantly larger max-width */
+  margin: 2rem auto;
+  padding: 2.5rem; /* Slightly more padding */
   background-color: white;
   box-shadow: 0 4px 6px var(--shadow-color);
   border-radius: 10px;
@@ -55,44 +59,48 @@ body {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--primary-color);
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .content {
   display: flex;
   width: 100%;
-  gap: 2rem;
-  min-height: 600px;
+  gap: 4rem; /* Increased gap between panels */
+  min-height: 650px; /* Taller minimum height for more space */
 }
 
 /* Panel styling */
 .left-panel, .right-panel {
   flex: 1;
-  padding: 1.5rem;
+  padding: 3rem; /* More padding for more space */
   background-color: white;
   border-radius: 8px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .divider {
-  width: 1px;
+  width: 2px; /* Thicker divider */
   background-color: var(--border-color);
-  margin: 0;
+  margin: 0 2rem; /* More horizontal margin for spacing */
 }
 
 /* Tabs styling */
 .tabs {
   display: flex;
   border-bottom: 2px solid var(--border-color);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem; /* More space below tabs */
 }
 
 .tab {
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 2rem; /* Wider tabs */
   cursor: pointer;
   transition: all 0.3s ease;
   border-bottom: 3px solid transparent;
   font-weight: 500;
   color: var(--text-secondary);
+  flex: 1;
+  text-align: center;
 }
 
 .tab.active {
@@ -116,12 +124,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.5rem; /* More horizontal padding */
   border-radius: 6px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem; /* More space between items */
   background-color: #f8fafc;
   border: 1px solid var(--border-color);
   transition: all 0.2s ease;
+}
+
+.url-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 1rem; /* More space */
 }
 
 .url-item:hover {
@@ -134,14 +148,15 @@ body {
   border: none;
   border-radius: 50%;
   color: white;
-  width: 30px;
-  height: 30px;
+  min-width: 32px; /* Slightly larger button */
+  min-height: 32px; /* Slightly larger button */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .plus-button:hover {
@@ -152,12 +167,14 @@ body {
 /* Input styling */
 h2 {
   color: var(--text-primary);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem; /* More space */
   font-weight: 600;
+  font-size: 1.5rem;
 }
 
 .input-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem; /* More space */
+  width: 100%;
 }
 
 input {
@@ -166,7 +183,7 @@ input {
   font-size: 0.95rem;
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem; /* More space */
   transition: all 0.2s ease;
 }
 
@@ -178,35 +195,47 @@ input:focus {
 
 .custom-link-input input {
   font-weight: 500;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem; /* More space */
 }
 
 .dropdown-group {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem; /* More space */
+  width: 100%;
 }
 
 /* QR code styling */
 .qr-container {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: 2rem; /* More padding */
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px var(--shadow-color);
-  margin: 1.5rem 0;
+  margin: 2rem 0; /* More space */
   border: 1px solid var(--border-color);
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Force QR code to be larger */
+.qr-container svg {
+  width: 350px !important; /* Even larger QR code */
+  height: 350px !important; /* Even larger QR code */
 }
 
 .link-description, .qr-description {
-  margin: 1rem 0;
+  margin: 1.5rem 0; /* More space */
+  width: 100%;
+  word-break: break-word;
 }
 
 .link-description strong, .qr-description strong {
   color: var(--text-primary);
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem; /* More space */
 }
 
 .generated-link {
@@ -219,15 +248,17 @@ input:focus {
 .param-list {
   list-style: none;
   padding: 0;
-  margin-top: 0.75rem;
+  margin-top: 1rem; /* More space */
   background-color: #f8fafc;
   border-radius: 6px;
   overflow: hidden;
+  width: 100%;
 }
 
 .param-list li {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.5rem; /* More horizontal padding */
   border-bottom: 1px solid var(--border-color);
+  word-break: break-all;
 }
 
 .param-list li:last-child {
@@ -236,23 +267,125 @@ input:focus {
 
 .param-list li strong {
   color: var(--primary-color);
-  margin-right: 0.5rem;
+  margin-right: 0.75rem; /* More space */
   display: inline-block;
 }
 
 /* Responsive adjustments */
+@media (max-width: 1600px) {
+  .container {
+    min-width: 0; /* Remove min-width constraint on smaller screens */
+    width: 90%;
+    padding: 2rem;
+  }
+  
+  .content {
+    gap: 2.5rem;
+  }
+  
+  .left-panel, .right-panel {
+    padding: 2.5rem;
+  }
+  
+  /* Adjust QR code size */
+  .qr-container svg {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .content {
+    gap: 1.5rem;
+  }
+  
+  .left-panel, .right-panel {
+    padding: 1.5rem;
+  }
+  
+  /* Reset QR code size on smaller screens */
+  .qr-container svg {
+    width: 280px !important;
+    height: 280px !important;
+  }
+}
+
 @media (max-width: 768px) {
   .content {
     flex-direction: column;
+    min-height: auto;
   }
   
   .divider {
     width: 100%;
-    height: 1px;
+    height: 2px;
     margin: 1rem 0;
   }
   
   .container {
+    width: 95%;
     padding: 1rem;
+    margin: 1rem auto;
+    border-radius: 8px;
+  }
+  
+  .app-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .left-panel, .right-panel {
+    padding: 1rem;
+  }
+  
+  /* Reset QR code size on mobile */
+  .qr-container svg {
+    width: 240px !important;
+    height: 240px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .app-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .content {
+    gap: 0.75rem;
+  }
+  
+  .left-panel, .right-panel {
+    padding: 0.75rem;
+  }
+  
+  .url-item {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .qr-container {
+    padding: 1rem;
+  }
+  
+  .tab {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  /* Smaller QR for very small screens */
+  .qr-container svg {
+    width: 200px !important;
+    height: 200px !important;
   }
 }
