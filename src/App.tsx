@@ -12,16 +12,22 @@ function App() {
   const [activeTab, setActiveTab] = useState('examples') // State to manage active tab
   const [qrSize, setQrSize] = useState(256) // State for QR code size
 
+
+  /*
+  Params:
+    - fromToken CAIP19 format (optional)
+    - toToken CAIP19 format (optional)
+    - amount (optional)
+    - decimals (optional - default 18 in code) [ignore for now]
+    - chainId (optional)
+  */
+
   // Add token addresses as constants
   const TOKEN_ADDRESSES = {
-    MAINNET: {
-      USDC: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-      USDT: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
-    },
-    LINEA: {
-      USDC: '0x176211869cA2b568f2A7D4EE941E073a821EE1ff',
-      USDT: '0xA219439258ca9da29E9Cc4cE5596924745e12B93'
-    }
+    USDC_MAINNET: 'eip155:1/erc20:0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    USDT_MAINNET: 'eip155:1/erc20:0xdAC17F958D2ee523a2206206994597C13D831ec7',
+    USDC_LINEA: 'eip155:59144/erc20:0x176211869cA2b568f2A7D4EE941E073a821EE1ff',
+    USDT_LINEA: 'eip155:59144/erc20:0xA219439258ca9da29E9Cc4cE5596924745e12B93'
   }
 
   // Adjust QR code size based on screen width
@@ -59,8 +65,8 @@ function App() {
     const currentChainId = newValues.chainId !== undefined ? newValues.chainId : chainId;
     
     if (currentValue.trim()) params.append('value', currentValue);
-    if (currentFromToken.trim()) params.append('fromToken', currentFromToken);
-    if (currentToToken.trim()) params.append('toToken', currentToToken);
+    if (currentFromToken.trim()) params.append('fromToken', encodeURIComponent(currentFromToken));
+    if (currentToToken.trim()) params.append('toToken', encodeURIComponent(currentToToken));
     if (currentChainId.trim()) params.append('chainId', currentChainId);
 
     const newLink = `${baseLink}?${params.toString()}`;
@@ -121,23 +127,23 @@ function App() {
               <ul className="example-list">
                 <li className="url-item">
                   <span>Swap 1 USDC to USDT</span>
-                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${TOKEN_ADDRESSES.MAINNET.USDC}&toToken=${TOKEN_ADDRESSES.MAINNET.USDT}&value=1`)} className="plus-button">➕</button>
+                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${encodeURIComponent(TOKEN_ADDRESSES.USDC_MAINNET)}&toToken=${encodeURIComponent(TOKEN_ADDRESSES.USDT_MAINNET)}&value=1`)} className="plus-button">➕</button>
                 </li>
                 <li className="url-item">
                   <span>Swap 1 USDC to USDT on Linea</span>
-                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${TOKEN_ADDRESSES.LINEA.USDC}&toToken=${TOKEN_ADDRESSES.LINEA.USDT}&value=1&chainId=59144`)} className="plus-button">➕</button>
+                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${encodeURIComponent(TOKEN_ADDRESSES.USDC_LINEA)}&toToken=${encodeURIComponent(TOKEN_ADDRESSES.USDT_LINEA)}&value=1&chainId=59144`)} className="plus-button">➕</button>
                 </li>
                 <li className="url-item">
                   <span>Swap 1 USDT to USDC on Mainnet</span>
-                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${TOKEN_ADDRESSES.MAINNET.USDT}&toToken=${TOKEN_ADDRESSES.MAINNET.USDC}&value=1&chainId=1`)} className="plus-button">➕</button>
+                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${encodeURIComponent(TOKEN_ADDRESSES.USDT_MAINNET)}&toToken=${encodeURIComponent(TOKEN_ADDRESSES.USDC_MAINNET)}&value=1&chainId=1`)} className="plus-button">➕</button>
                 </li>
                 <li className="url-item">
                   <span>Swap USDC</span>
-                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${TOKEN_ADDRESSES.MAINNET.USDC}`)} className="plus-button">➕</button>
+                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${encodeURIComponent(TOKEN_ADDRESSES.USDC_MAINNET)}`)} className="plus-button">➕</button>
                 </li>
                 <li className="url-item">
                   <span>Swap 1 USDT</span>
-                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${TOKEN_ADDRESSES.MAINNET.USDT}&value=1`)} className="plus-button">➕</button>
+                  <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${encodeURIComponent(TOKEN_ADDRESSES.USDT_MAINNET)}&value=1`)} className="plus-button">➕</button>
                 </li>
               </ul>
             </div>
