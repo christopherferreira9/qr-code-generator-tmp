@@ -162,17 +162,11 @@ function App() {
                   placeholder="Paste your custom link here"
                 />
               </div>
+              <hr style={{ opacity: '0.5', marginTop: '50px', marginBottom: '50px' }} />
+              
+              <h2 className="custom-subtitle">Create Your Own</h2>
+
               <div className="dropdown-group">
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    setValue(newValue);
-                    updateLink({ value: newValue });
-                  }}
-                  placeholder="Value (optional)"
-                />
                 <input
                   type="text"
                   value={fromToken}
@@ -189,6 +183,8 @@ function App() {
                     <option key={token} value={token} />
                   ))}
                 </datalist>
+                
+                
                 <input
                   type="text"
                   value={toToken}
@@ -199,6 +195,16 @@ function App() {
                   }}
                   placeholder="To Token Address (optional)"
                   list="tokensList"
+                />
+                <input
+                  type="text"
+                  value={value}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setValue(newValue);
+                    updateLink({ value: newValue });
+                  }}
+                  placeholder="Value (optional)"
                 />
                 <input
                   type="text"
