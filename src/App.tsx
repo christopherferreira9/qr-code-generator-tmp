@@ -9,6 +9,7 @@ function App() {
   const [fromToken, setFromToken] = useState('')
   const [toToken, setToToken] = useState('')
   const [chainId, setChainId] = useState('')
+  const [decimals, setDecimals] = useState('')
   const [activeTab, setActiveTab] = useState('examples') // State to manage active tab
   const [qrSize, setQrSize] = useState(256) // State for QR code size
 
@@ -55,7 +56,8 @@ function App() {
     value?: string,
     fromToken?: string,
     toToken?: string,
-    chainId?: string
+    chainId?: string,
+    decimals?: string
   } = {}) => {
     const params = new URLSearchParams();
     
@@ -63,11 +65,20 @@ function App() {
     const currentFromToken = newValues.fromToken !== undefined ? newValues.fromToken : fromToken;
     const currentToToken = newValues.toToken !== undefined ? newValues.toToken : toToken;
     const currentChainId = newValues.chainId !== undefined ? newValues.chainId : chainId;
+    const currentDecimals = newValues.decimals !== undefined ? newValues.decimals : decimals;
     
     if (currentValue.trim()) params.append('value', currentValue);
     if (currentFromToken.trim()) params.append('fromToken', encodeURIComponent(currentFromToken));
     if (currentToToken.trim()) params.append('toToken', encodeURIComponent(currentToToken));
     if (currentChainId.trim()) params.append('chainId', currentChainId);
+    
+    // Format decimals as "uint256=2e{decimal value}" if provided
+    if (currentDecimals.trim()) {
+      const decimalValue = parseInt(currentDecimals);
+      if (!isNaN(decimalValue)) {
+        params.append('uint256', `2e${decimalValue}`);
+      }
+    }
 
     const newLink = `${baseLink}?${params.toString()}`;
     setText(newLink);
@@ -82,6 +93,7 @@ function App() {
     setFromToken('');
     setToToken('');
     setChainId('');
+    setDecimals('');
   }
 
   const handleSelectUrl = (url: string) => {
@@ -126,7 +138,7 @@ function App() {
               <h2>Example Links</h2>
               <ul className="example-list">
                 <li className="url-item">
-                  <span>Swap 1 USDC to USDT</span>
+                  <span>Swap 1 USDC to USDT with decimals</span>
                   <button onClick={() => handleSelectUrl(`${baseLink}?fromToken=${encodeURIComponent(TOKEN_ADDRESSES.USDC_MAINNET)}&toToken=${encodeURIComponent(TOKEN_ADDRESSES.USDT_MAINNET)}&value=1`)} className="plus-button">➕</button>
                 </li>
                 <li className="url-item">
@@ -205,6 +217,16 @@ function App() {
                     updateLink({ value: newValue });
                   }}
                   placeholder="Value (optional)"
+                />
+                <input
+                  type="text"
+                  value={decimals}
+                  onChange={(e) => {
+                    const newDecimals = e.target.value;
+                    setDecimals(newDecimals);
+                    updateLink({ decimals: newDecimals });
+                  }}
+                  placeholder="Decimals (optional)"
                 />
                 <input
                   type="text"
